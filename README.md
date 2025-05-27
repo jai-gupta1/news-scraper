@@ -1,30 +1,34 @@
-# News Scraper
+# White House News Scraper
 
-A Python-based web scraper that monitors specific news sites for updates.
+A Python script that scrapes and displays recent news from the White House website (whitehouse.gov).
 
-## Setup
+## Features
+
+- Fetches recent news articles from the White House website
+- Categorizes news items (Executive Orders, Fact Sheets, Statements, etc.)
+- Displays article titles, dates, excerpts, and links
+- Filters news by date range
+- Cleans and formats text for better readability
+
+## Requirements
+
+- Python 3.6+
+- requests
+- beautifulsoup4
+
+## Installation
 
 1. Clone this repository
-2. Create a virtual environment:
-   ```
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-3. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-
-## Configuration
-
-Create a `.env` file with your configuration:
-```
-NEWS_SITES=site1.com,site2.com
-UPDATE_INTERVAL=30  # minutes
+2. Install dependencies:
+```bash
+pip install requests beautifulsoup4
 ```
 
 ## Usage
 
-Run the scraper:
+Run the script with:
+```bash
+python scraper.py
 ```
-python scraper.py 
+
+By default, it will show news from the last 7 days. You can modify the `days_back` parameter in the script to change this. 
