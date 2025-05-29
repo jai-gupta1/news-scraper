@@ -8,7 +8,7 @@ import os
 
 load_dotenv(override=True)
 
-client = OpenAI()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def summarize_text(text):
     response = client.chat.completions.create(
