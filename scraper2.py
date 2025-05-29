@@ -82,7 +82,7 @@ def fetch_news(days):
 def create_news_string(news_list, title_list):
     news_string = ""
     for i, news in enumerate(news_list):
-        news_string += f"📰 <strong>{title_list[i]}</strong>\n\n{news}\n\n"
+        news_string += f"📰 <strong>{title_list[i]}</strong><br>{news}<br><br>"
     return news_string
 
 
@@ -93,7 +93,8 @@ if __name__ == '__main__':
         sender_password= os.getenv("EMAIL_PASSWORD"),
         recipient_emails= [os.getenv("EMAIL_USERNAME2")],
         subject="Daily White House News",
-        body=news_string
+        body=news_string,
+        is_html=True
     )
     if success:
         print("success!")
