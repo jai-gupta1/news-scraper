@@ -1,0 +1,30 @@
+name: Daily Cron Job
+
+on:
+  schedule:
+    - cron: '00 20 * * *'  # Every day at 1pm PST or 8pm UTC
+  workflow_dispatch: 
+
+jobs:
+  run-daily:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout your repo
+        uses: actions/checkout@v3
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'  # Change if you use a different version
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+        
+      - name: Run your email-sending script
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          EMAIL_USERNAME1: ${{ secrets.EMAIL_USERNAME1 }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_USERNAME2: ${{ secrets.EMAIL_USERNAME2 }}
+        run: python scraper2.py
