@@ -2,10 +2,13 @@ from bs4 import BeautifulSoup
 import requests
 from datetime import datetime, timedelta
 from openai import OpenAI
+from dotenv import load_dotenv
+from email_sender import send_email
+import os
 
-client = OpenAI(
-    api_key='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'
-)
+load_dotenv(override=True)
+
+client = OpenAI()
 
 def summarize_text(text):
     response = client.chat.completions.create(
@@ -66,19 +69,34 @@ def fetch_news_text(gravy):
 def fetch_news(days):
     cont_href, title_list = fetch_article(days)
     news_list = []
-    for i, href in enumerate(cont_href):
-        print("=" * 60)
-        print(f"📰 {title_list[i]}\n") 
-
+    for href in cont_href:
         response = requests.get(href, headers=headers)
         gravy = BeautifulSoup(response.text, 'html.parser')
         all_news_text = fetch_news_text(gravy)
         summary = summarize_text(all_news_text)
         news_list.append(summary)
 
-        print(summary)
-        print("=" * 60)
+    news_string = create_news_string(news_list, title_list)
+    return news_string
+
+def create_news_string(news_list, title_list):
+    news_string = ""
+    for i, news in enumerate(news_list):
+        news_string += f"📰 {title_list[i]}\n{news}\n\n"
+    return news_string
 
 
 if __name__ == '__main__':
-    fetch_news(1)
+    news_string = fetch_news(2)
+    success = send_email(
+        sender_email= os.getenv("EMAIL_USERNAME1"),
+        sender_password= os.getenv("EMAIL_PASSWORD"),
+        recipient_emails= [os.getenv("EMAIL_USERNAME2")],
+        subject="Daily White House News",
+        body=news_string
+    )
+    if success:
+        print("success!")
+    else:
+        print("failed!")
+
