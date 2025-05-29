@@ -82,7 +82,7 @@ def fetch_news(days):
 def create_news_string(news_list, title_list):
     news_string = ""
     for i, news in enumerate(news_list):
-        news_string += f"📰 {title_list[i]}\n{news}\n\n"
+        news_string += f"📰 <strong>{title_list[i]}</strong>\n\n{news}\n\n"
     return news_string
 
 
