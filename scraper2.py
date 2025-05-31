@@ -87,7 +87,7 @@ def create_news_string(news_list, title_list):
 
 
 if __name__ == '__main__':
-    news_string = fetch_news(1)
+    news_string = fetch_news(2)
     success = send_email(
         sender_email= os.getenv("EMAIL_USERNAME1"),
         sender_password= os.getenv("EMAIL_PASSWORD"),
