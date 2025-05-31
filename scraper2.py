@@ -15,10 +15,10 @@ def summarize_text(text):
         model="gpt-3.5-turbo",  
         messages=[
             {"role": "system", "content": "You are a helpful assistant that summarizes text."},
-            {"role": "user", "content": f"Please summarize the following:\n\n{text}"}
+            {"role": "user", "content": f"Consider I am a busy person who needs to know the latest news in the White House. Please summarize each article in the text in a way that is easy to understand while still keeping the original meaning. I want to know the specific details of the news while keeping it concise and to the point. Please keep it under 250 words per news article:\n\n{text}"}
         ],
         temperature=0.5,
-        max_tokens=500  # Controls the length of the summary
+        max_tokens=300  # Controls the length of the summary
     )
     
     summary = response.choices[0].message.content
@@ -87,7 +87,7 @@ def create_news_string(news_list, title_list):
 
 
 if __name__ == '__main__':
-    news_string = fetch_news(2)
+    news_string = fetch_news(1)
     success = send_email(
         sender_email= os.getenv("EMAIL_USERNAME1"),
         sender_password= os.getenv("EMAIL_PASSWORD"),
