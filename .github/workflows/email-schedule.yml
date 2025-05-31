@@ -2,7 +2,7 @@ name: Daily Cron Job
 
 on:
   schedule:
-    - cron: '00 20 * * *'  # Every day at 1pm PST or 8pm UTC
+    - cron: '00 23 * * *'  # Every day at 4pm PST or 11pm UTC
   workflow_dispatch: 
 
 jobs:
